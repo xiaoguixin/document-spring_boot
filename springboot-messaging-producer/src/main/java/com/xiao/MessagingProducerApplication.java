@@ -4,7 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 演示消息队列
+ * 演示消息队列发送消息
+ * 发送之前需要先启动zookper
  */
 @SpringBootApplication
 public class MessagingProducerApplication {
