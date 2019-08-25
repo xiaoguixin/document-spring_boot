@@ -18,6 +18,9 @@
     <modules>
         <module>springboot-started</module>
         <module>springboot-redis</module>
+        <module>springboot-profiles</module>
+        <module>springboot-logging</module>
+        <module>springboot-web</module>
     </modules>
 
     <properties>
