@@ -6,37 +6,45 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.xiao.serialize.CustomizeJsonSerialize;
-import com.xiao.serialize.DoubleSerialize;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 
 import java.nio.charset.Charset;
 import java.util.Date;
 
 /**
- * 自定义ResponseBody对象输出
+ * Spring MVC使用HttpMessageConverter接口转换HTTP请求和响应(Request和ReposeBody)
+ * 如对象自动转换为JSON或者XML
+ *
  */
 @Configuration
-public class HttpMessageConverterConfig {
+public class CustomizeHttpMessageConverterConfig {
 
+    /**
+     * 自定义ResponseBody对象输出
+     * @return
+     */
     @Bean
     public HttpMessageConverters customConverters() {
         System.out.println("－－－－－－－init－－－－－－");
 
         HttpMessageConverter<String> str = new StringHttpMessageConverter();
         FastJsonHttpMessageConverter fastConverter = fastConverter();
-        FastJsonHttpMessageConverter Converter = fastConverter();
         MappingJackson2HttpMessageConverter jacksonConverter = jacksonConverter();
+        MappingJackson2XmlHttpMessageConverter jacksonXMlConverter = null;
 
         int type = 0;
         if(type == 1){// fast json格式化
             return new HttpMessageConverters(str, fastConverter);
         } else if(type == 2){// jackson格式化
             return new HttpMessageConverters(str, jacksonConverter);
+        } else if(type == 3){// jackson转化xml格式化
+            return new HttpMessageConverters(str, jacksonXMlConverter);
         } else {
             return new HttpMessageConverters(str);
         }
@@ -85,8 +93,9 @@ public class HttpMessageConverterConfig {
      */
     public MappingJackson2HttpMessageConverter jacksonConverter(){
         SimpleModule simpleModule = new SimpleModule();
+        // 输出
         //simpleModule.addSerializer(Double.class, new DoubleSerialize());//保留两位小数
-        //simpleModule.addSerializer(Date.class, new CustomizeJsonSerialize.BirthdaySerializer());//保留两位小数
+        simpleModule.addSerializer(Date.class, new CustomizeJsonSerialize.BirthdaySerializer());//保留两位小数
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(simpleModule);

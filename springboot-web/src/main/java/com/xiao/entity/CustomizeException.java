@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * 自定义异常处理
+ * 自定义业务异常
+ * GlobalExceptionHandler自动增加time
  */
 @Data
 @AllArgsConstructor
-public class CustomException extends RuntimeException {
+public class CustomizeException extends RuntimeException {
 
     private long code;
     private String msg;

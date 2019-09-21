@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 
 /**
  * 定义单个序列化类
- * 需要结合jackson框架使用，详见消息转化器
+ * 需要结合jackson框架使用
  */
 public class DoubleSerialize extends JsonSerializer<Double> {
 
@@ -18,6 +18,7 @@ public class DoubleSerialize extends JsonSerializer<Double> {
     /**
      * 用户将double类型的数据格式化成小数点后两位的字符串数据：
      * 如输出为“900.00”.
+     * 实体类属性增加@JsonSerialize，详见User类
      * @param aDouble
      * @param jsonGenerator
      * @param serializerProvider

@@ -1,24 +1,23 @@
 package com.xiao.controller;
 
 import com.xiao.entity.User;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * RestController可以不用加ResponseBody默认返回Json格式数据
+ * @Controller需要加ResponseBody
+ * @RestController可以不用加ResponseBody默认返回Json格式数据
  */
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable Long id) {
+    public User getUser(@PathVariable @NotNull Long id) {
         List<User> users = User.getUsers(id.intValue());
-        return users.get(0);
+        return users.get(id.intValue()-1);
     }
 
     @RequestMapping(value = "/{id}/customers", method = RequestMethod.GET)
@@ -30,7 +29,6 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public User deleteUser(@PathVariable Long id) {
         List<User> users = User.getUsers(id.intValue());
-        return users.get(0);
+        return users.get(id.intValue()-1);
     }
-
 }
