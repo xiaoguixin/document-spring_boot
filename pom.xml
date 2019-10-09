@@ -21,6 +21,8 @@
         <module>springboot-profiles</module>
         <module>springboot-logging</module>
         <module>springboot-web</module>
+        <module>springboot-security</module>
+        <module>springboot-databases</module>
     </modules>
 
     <properties>

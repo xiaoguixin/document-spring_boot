@@ -25,7 +25,6 @@ public class UserController {
      * @return msg
      */
     @RequiresRoles(value = {"admin", "test"}, logical = Logical.OR)
-    //@RequiresPermissions(value = {"user:list", "user:query"}, logical = Logical.OR)
     @GetMapping("/query")
     public String query() {
         return "query.....";
